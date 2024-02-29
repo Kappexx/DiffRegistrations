@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const connect = require("./userdbconnect");
 const register = express.Router();
-
+// sssss
 register.post("/register", (req, res) => {
   const saltRounds = parseInt(process.env.SALT);
   const { name, email, password } = req.body;
