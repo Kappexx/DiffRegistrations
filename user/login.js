@@ -7,13 +7,18 @@ const login = express.Router();
 login.post("/login", async (req, res) => {
   const { name, password } = req.body;
   const data = await connect().query(
-    "select customer_password from customer where customer_name = $1",
+    "select * from customer where customer_name = $1",
     [name]
   );
-  const customer_pass = data.rows[0].customer_password;
-  const match = await bcrypt.compare(password, customer_pass);
+  const { id, customer_password } = data.rows[0];
+
+  const match = await bcrypt.compare(password, customer_password);
 
   if (match) {
+    req.session.u_id = id;
+    req.session.logedin = true;
+    req.session.save();
+
     res.send("valid password");
   } else if (!match) {
     res.send("invalid password");
