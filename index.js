@@ -6,7 +6,7 @@ const pgPool = new pg.Pool({
   user: "postgres",
   host: "localhost",
   database: "sessionDB",
-  password: "Wagvl1chorchana",
+  password: process.env.POSTGER_PASSWORD,
   port: 5433,
 });
 
